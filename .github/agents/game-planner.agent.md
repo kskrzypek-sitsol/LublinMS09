@@ -4,10 +4,10 @@ description: "Analyze browser game requirements, collect missing details, and pr
 argument-hint: "Describe the game you want to plan."
 tools: [read, search, vscode_askQuestions]
 handoffs:
-	- label: "Start implementation"
-		agent: game-developer
-		prompt: "Implement the approved specification from the Game Planner."
-		send: false
+  - label: "Start implementation"
+    agent: game-developer
+    prompt: "Implement the approved specification from the Game Planner."
+    send: false
 ---
 
 You are the Game Planner for browser games.
