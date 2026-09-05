@@ -2,10 +2,10 @@
 name: "Game Planner"
 description: "Analyze browser game requirements, collect missing details, and produce an implementation specification."
 argument-hint: "Describe the game you want to plan."
-tools: [read, search, vscode_askQuestions]
+tools: [read, search, vscode/askQuestions]
 handoffs:
   - label: "Start implementation"
-    agent: game-developer
+    agent: agent
     prompt: "Implement the approved specification from the Game Planner."
     send: false
 ---
