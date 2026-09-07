@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunfield Derby</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Rye&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="masthead">
+      <p class="eyebrow">Est. 1926 · Summer meeting</p>
+      <h1>Sunfield <span>Derby</span></h1>
+      <p class="race-badge">Race <strong id="race-number">01</strong></p>
+    </header>
+
+    <section class="setup-panel" id="setup-panel" aria-labelledby="setup-title">
+      <div class="panel-heading">
+        <p class="section-label">Entry office</p>
+        <h2 id="setup-title">Name your runners</h2>
+      </div>
+      <div class="player-count" aria-label="Player count">
+        <span>Players</span>
+        <div class="count-buttons" role="group" aria-label="Choose player count">
+          <button class="count-button active" type="button" data-count="2">2</button>
+          <button class="count-button" type="button" data-count="3">3</button>
+          <button class="count-button" type="button" data-count="4">4</button>
+        </div>
+      </div>
+      <div class="player-fields" id="player-fields"></div>
+      <button class="start-button" id="start-button" type="button">Start the race <span>→</span></button>
+    </section>
+
+    <section class="race-panel hidden" id="race-panel" aria-labelledby="race-title">
+      <div class="race-meta">
+        <p class="section-label">Main track · 1,200 m</p>
+        <h2 id="race-title">They are off!</h2>
+        <p id="race-status" aria-live="polite">Horses at the gate</p>
+      </div>
+      <div class="grandstand" aria-hidden="true">
+        <div class="stand-roof"></div>
+        <div class="crowd"></div>
+      </div>
+      <div class="track-wrap">
+        <div class="finish-line" aria-label="Finish line"><span>FINISH</span></div>
+        <div class="track" id="track"></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="results-dialog" id="results-dialog" aria-labelledby="results-title">
+    <div class="results-sun"></div>
+    <p class="section-label">Official result</p>
+    <h2 id="results-title"><span id="winner-name"></span> wins!</h2>
+    <ol class="results-list" id="results-list"></ol>
+    <button class="start-button" id="rematch-button" type="button">Run it back <span>→</span></button>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

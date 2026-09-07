@@ -1,0 +1,9 @@
+Hook	Kiedy się odpala	Dobry przykład
+SessionStart	start nowej sesji agenta	inicjalizacja, sprawdzenie środowiska
+UserPromptSubmit	gdy wysyłasz prompt	logowanie promptów, dodanie kontekstu
+PreToolUse	przed użyciem toola	zablokuj niebezpieczną komendę
+PostToolUse	po poprawnym wykonaniu toola	automatyczny Prettier po edycji pliku
+PreCompact	przed kompresją kontekstu długiej rozmowy	zapisz ważny stan/kontekst
+SubagentStart	gdy agent uruchamia subagenta	przekaż mu dodatkowe zasady
+SubagentStop	gdy subagent kończy	walidacja/zbieranie jego wyników
+Stop	gdy bieżące wykonanie agenta się kończy	testy, raport końcowy

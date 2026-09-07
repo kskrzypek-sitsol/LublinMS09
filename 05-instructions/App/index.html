@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horses at Dawn</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="masthead">
+      <p class="eyebrow">The Meadow Track</p>
+      <h1>Horses at Dawn</h1>
+      <p class="subtitle">Choose the riders. Let the fastest horse win.</p>
+    </header>
+
+    <section class="setup-panel" aria-labelledby="players-title">
+      <div>
+        <p class="section-label">Race entry</p>
+        <h2 id="players-title">Add players</h2>
+      </div>
+      <form id="player-form" class="player-form">
+        <label class="sr-only" for="player-name">Player name</label>
+        <input id="player-name" name="player-name" type="text" maxlength="18" placeholder="Player name" autocomplete="off">
+        <button class="add-button" type="submit">Add Player</button>
+      </form>
+      <p id="player-message" class="player-message" aria-live="polite">Add 2 to 6 players.</p>
+      <ol id="player-list" class="player-list" aria-label="Players"></ol>
+    </section>
+
+    <section class="race-section" aria-labelledby="race-title">
+      <div class="race-heading">
+        <div>
+          <p class="section-label">Main event</p>
+          <h2 id="race-title">Starting gate</h2>
+        </div>
+        <button id="start-race" class="start-button" type="button" disabled>Start Race</button>
+      </div>
+
+      <div id="track" class="track" aria-label="Horse racing track">
+        <div class="track-empty">Add players to open the starting gate.</div>
+      </div>
+    </section>
+
+    <section id="results" class="results" hidden aria-labelledby="results-title">
+      <p class="section-label">Final classification</p>
+      <h2 id="results-title">Photo finish</h2>
+      <ol id="results-list" class="results-list"></ol>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

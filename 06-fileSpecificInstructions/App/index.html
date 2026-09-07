@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horse Dash</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="masthead">
+      <p class="eyebrow">Track meet / one race</p>
+      <h1>Horse Dash</h1>
+      <p class="subtitle">Name the runners. Pick the field. Then let speed decide.</p>
+    </header>
+
+    <section class="setup-panel" aria-labelledby="players-heading">
+      <div class="panel-heading">
+        <h2 id="players-heading">Starting field</h2>
+        <span id="player-count" class="count">0 / 6</span>
+      </div>
+      <form id="player-form" class="player-form">
+        <label class="sr-only" for="player-name">Player name</label>
+        <input id="player-name" type="text" maxlength="18" placeholder="Player name" autocomplete="off">
+        <button id="add-player" type="submit">Add player</button>
+      </form>
+      <p id="setup-message" class="message" aria-live="polite">Add 2 to 6 players to race.</p>
+      <ol id="player-list" class="player-list"></ol>
+      <button id="start-race" class="start-button" type="button" disabled>Start race</button>
+    </section>
+
+    <section class="race-panel" aria-labelledby="race-heading">
+      <div class="panel-heading">
+        <h2 id="race-heading">The track</h2>
+        <span id="race-status" class="status" aria-live="polite">Waiting at gate</span>
+      </div>
+      <div id="race-track" class="race-track" aria-label="Horse race track">
+        <div class="empty-track">Add runners to build the track.</div>
+      </div>
+    </section>
+
+    <section id="results-panel" class="results-panel" hidden aria-labelledby="results-heading">
+      <p class="eyebrow">Official result</p>
+      <h2 id="results-heading">Final classification</h2>
+      <ol id="classification-list" class="classification-list"></ol>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallop Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="masthead">
+      <p class="eyebrow">Private Track No. 08</p>
+      <h1>Gallop <span>Club</span></h1>
+      <p class="tagline">A small race. A serious finish.</p>
+    </header>
+
+    <section class="control-panel" aria-labelledby="players-heading">
+      <div class="panel-heading">
+        <p class="step">01 / FIELD</p>
+        <h2 id="players-heading">Build the field</h2>
+      </div>
+      <div class="entry-row">
+        <label class="sr-only" for="player-name">Player name</label>
+        <input id="player-name" type="text" maxlength="18" placeholder="Enter rider name" autocomplete="off">
+        <button id="add-player" class="add-button" type="button">Add player</button>
+      </div>
+      <p id="input-message" class="input-message" aria-live="polite">Add 2 to 6 players to begin.</p>
+      <ul id="player-list" class="player-list" aria-label="Players"></ul>
+      <button id="start-race" class="start-button" type="button" disabled>Start race <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section class="race-section" aria-labelledby="race-heading">
+      <div class="race-header">
+        <div>
+          <p class="step">02 / RACE DAY</p>
+          <h2 id="race-heading">The green course</h2>
+        </div>
+        <p id="race-status" class="race-status" aria-live="polite">Awaiting riders</p>
+      </div>
+      <div id="track" class="track" aria-label="Horse race track">
+        <div class="finish-line" aria-label="Finish line"><span>FINISH</span></div>
+        <div id="empty-track" class="empty-track">The gates open when the field is set.</div>
+      </div>
+    </section>
+
+    <section id="results" class="results" hidden aria-labelledby="results-heading">
+      <p class="step">03 / RESULTS</p>
+      <h2 id="results-heading">Final classification</h2>
+      <ol id="classification" class="classification"></ol>
+      <p class="race-over">Race complete.</p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

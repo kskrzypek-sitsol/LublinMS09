@@ -1,0 +1,84 @@
+:root {
+  --ink: #1d2a36;
+  --muted: #5e6c73;
+  --paper: #f7f1e6;
+  --white: #fffdf8;
+  --grass: #3f785d;
+  --grass-dark: #24513f;
+  --coral: #e8684c;
+  --yellow: #f0c54f;
+  --line: #d5cdbc;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image: linear-gradient(90deg, rgba(29, 42, 54, .035) 1px, transparent 1px), linear-gradient(rgba(29, 42, 54, .035) 1px, transparent 1px);
+  background-size: 20px 20px;
+  font-family: "DM Mono", monospace;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.game-shell { width: min(960px, calc(100% - 32px)); margin: 0 auto; padding: 54px 0 64px; }
+.masthead { margin-bottom: 34px; animation: oscp-rise .5s ease-out both; }
+.eyebrow { margin: 0 0 8px; color: var(--coral); font-size: .76rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+h1, h2 { font-family: Fraunces, Georgia, serif; letter-spacing: 0; }
+h1 { margin: 0; font-size: clamp(3rem, 8vw, 5.8rem); line-height: .9; }
+h2 { margin: 0; font-size: 1.55rem; }
+.subtitle { max-width: 520px; margin: 18px 0 0; color: var(--muted); font-size: .94rem; line-height: 1.65; }
+
+.setup-panel, .race-panel, .results-panel { border-top: 2px solid var(--ink); padding-top: 16px; }
+.setup-panel { margin-bottom: 40px; }
+.panel-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.count, .status { color: var(--muted); font-size: .75rem; white-space: nowrap; }
+.status { color: var(--grass-dark); font-weight: 500; text-transform: uppercase; }
+
+.player-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+input { min-width: 0; padding: 12px 14px; color: var(--ink); border: 1px solid var(--ink); border-radius: 3px; background: var(--white); outline-offset: 3px; }
+input:focus { outline: 2px solid var(--coral); }
+button { border: 1px solid var(--ink); border-radius: 3px; color: var(--ink); background: var(--yellow); font-weight: 500; transition: transform .15s ease, background .15s ease; }
+button:hover:not(:disabled) { transform: translateY(-2px); background: #f7d46e; }
+button:disabled { cursor: not-allowed; opacity: .45; }
+.player-form button { padding: 12px 16px; }
+.message { min-height: 1.2em; margin: 11px 0 8px; color: var(--muted); font-size: .76rem; }
+.player-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 7px; margin: 0; padding: 0; list-style: none; }
+.player-list li { display: flex; align-items: center; justify-content: space-between; min-height: 38px; padding: 7px 7px 7px 11px; border: 1px solid var(--line); border-radius: 3px; background: rgba(255, 253, 248, .7); font-size: .78rem; }
+.remove-player { display: grid; width: 24px; height: 24px; place-items: center; padding: 0; color: var(--coral); border: 0; background: transparent; font-size: 1.3rem; line-height: 1; }
+.remove-player:hover:not(:disabled) { background: #fce2dc; }
+.start-button { width: 100%; margin-top: 14px; padding: 14px 18px; color: var(--white); background: var(--grass-dark); font-size: .9rem; text-transform: uppercase; }
+.start-button:hover:not(:disabled) { background: var(--grass); }
+
+.race-panel { animation: oscp-rise .5s .12s ease-out both; }
+.race-track { overflow: hidden; border: 2px solid var(--grass-dark); border-radius: 3px; background: var(--grass); }
+.empty-track { display: grid; min-height: 180px; place-items: center; padding: 24px; color: rgba(255, 255, 255, .75); font-size: .8rem; text-align: center; }
+.lane { position: relative; display: flex; align-items: center; min-height: 76px; padding: 10px 0; border-bottom: 2px dashed rgba(255, 255, 255, .45); }
+.lane:last-child { border-bottom: 0; }
+.finish-line { position: absolute; z-index: 1; top: 0; bottom: 0; right: 10%; width: 9px; border-left: 3px solid var(--white); background: repeating-linear-gradient(180deg, var(--ink) 0 10px, var(--white) 10px 20px); }
+.horse { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; width: max-content; margin-left: 10px; color: var(--white); transition: filter .2s ease; }
+.horse-icon { font-size: 2rem; line-height: 1; transform: scaleX(-1); }
+.horse-name { max-width: 110px; overflow: hidden; font-size: .73rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; text-shadow: 1px 1px 0 var(--grass-dark); }
+.horse.finished { filter: brightness(1.25) saturate(.7); }
+
+.results-panel { margin-top: 40px; animation: oscp-rise .4s ease-out both; }
+.results-panel[hidden] { display: none; }
+.classification-list { display: grid; gap: 6px; margin: 16px 0 0; padding: 0; list-style: none; counter-reset: ranking; }
+.classification-list li { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 3px; background: var(--white); counter-increment: ranking; font-size: .84rem; }
+.classification-list li::before { content: counter(ranking); display: grid; width: 25px; height: 25px; place-items: center; color: var(--white); border-radius: 50%; background: var(--grass-dark); font-size: .72rem; }
+.classification-list li:first-child::before { color: var(--ink); background: var(--yellow); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+@keyframes oscp-rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 560px) {
+  .game-shell { width: min(100% - 24px, 960px); padding-top: 34px; }
+  .player-list { grid-template-columns: 1fr; }
+  .lane { min-height: 66px; }
+  .horse-icon { font-size: 1.7rem; }
+  .horse-name { max-width: 78px; }
+}

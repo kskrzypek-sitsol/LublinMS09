@@ -1,0 +1,380 @@
+:root {
+  --ink: #15332e;
+  --paper: #f7f1df;
+  --cream: #fffaf0;
+  --sun: #f4be42;
+  --red: #d9553d;
+  --green: #357b57;
+  --dark-green: #143c35;
+  --line: #d6c9ad;
+  --shadow: 0 18px 45px rgba(21, 51, 46, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(0deg, rgba(21, 51, 46, 0.035) 0, rgba(21, 51, 46, 0.035) 1px, transparent 1px, transparent 5px);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1100px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0 60px;
+}
+
+.masthead {
+  position: relative;
+  overflow: hidden;
+  padding: 44px 48px;
+  color: var(--cream);
+  background: var(--dark-green);
+  box-shadow: var(--shadow);
+}
+
+.masthead::after {
+  position: absolute;
+  right: 7%;
+  bottom: -86px;
+  width: 250px;
+  height: 250px;
+  border: 28px solid var(--sun);
+  border-radius: 50%;
+  content: "";
+  opacity: 0.95;
+}
+
+.eyebrow,
+.section-number {
+  margin: 0;
+  color: var(--sun);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 5px;
+  font-size: clamp(2.8rem, 8vw, 5.8rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 0.95;
+}
+
+.tagline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #d8e8cf;
+  font-size: 1.06rem;
+}
+
+.setup-screen,
+.race-screen {
+  padding: 34px 0 0;
+}
+
+.section-heading,
+.race-topline {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+h2 {
+  margin: 5px 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.player-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.player-field {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: center;
+  min-height: 58px;
+  border: 1px solid var(--line);
+  background: var(--cream);
+}
+
+.player-number {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  color: var(--cream);
+  background: var(--green);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.player-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  padding: 14px;
+  color: var(--ink);
+  background: transparent;
+}
+
+.player-field:focus-within {
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+.form-error {
+  min-height: 1.3em;
+  margin: 12px 0 0;
+  color: #a42e2e;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.button {
+  min-height: 48px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  padding: 10px 16px;
+  color: var(--ink);
+  background: transparent;
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--sun);
+  outline-offset: 3px;
+}
+
+.button-primary {
+  color: var(--cream);
+  background: var(--red);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.button-quiet {
+  border-color: transparent;
+}
+
+.button-quiet:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.race-status {
+  margin: 0;
+  color: var(--green);
+  font-family: "Trebuchet MS", sans-serif;
+  font-weight: 800;
+  text-align: right;
+}
+
+.track {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  margin-top: 20px;
+  border: 8px solid var(--dark-green);
+  border-radius: 4px;
+  padding: 8px;
+  overflow: hidden;
+  background: var(--dark-green);
+  box-shadow: var(--shadow);
+}
+
+.track::after {
+  position: absolute;
+  top: 0;
+  right: 10%;
+  bottom: 0;
+  width: 7px;
+  border-right: 4px solid var(--cream);
+  border-left: 4px solid var(--cream);
+  content: "";
+  opacity: 0.9;
+}
+
+.lane {
+  position: relative;
+  min-height: 80px;
+  overflow: hidden;
+  background-color: #c7b07b;
+  background-image: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0, rgba(255, 255, 255, 0.22) 2px, transparent 2px, transparent 26px);
+}
+
+.lane:nth-child(even) {
+  background-color: #bda36d;
+}
+
+.lane-label {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 10px;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.horse {
+  position: absolute;
+  z-index: 1;
+  bottom: 3px;
+  left: 2%;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 62px;
+  font-size: 3rem;
+  line-height: 1;
+  transform: translateX(-50%);
+  transition: left 110ms linear;
+}
+
+.horse.is-running {
+  animation: gallop 190ms steps(2, end) infinite;
+}
+
+.horse.is-winner {
+  filter: drop-shadow(0 0 5px var(--sun));
+}
+
+@keyframes gallop {
+  50% { transform: translateX(-50%) translateY(-6px) rotate(-3deg); }
+}
+
+.is-hidden {
+  display: none;
+}
+
+.winner-dialog {
+  width: min(440px, calc(100% - 32px));
+  border: 7px solid var(--dark-green);
+  border-radius: 4px;
+  padding: 38px;
+  color: var(--ink);
+  background: var(--cream);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.winner-dialog::backdrop {
+  background: rgba(20, 60, 53, 0.7);
+}
+
+.winner-mark {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 15px;
+  place-items: center;
+  color: var(--dark-green);
+  background: var(--sun);
+  border-radius: 50%;
+  font-size: 1.7rem;
+}
+
+.winner-dialog h2 {
+  font-size: clamp(2rem, 7vw, 3.6rem);
+}
+
+.winner-detail {
+  margin: 13px 0 25px;
+  color: #52645e;
+}
+
+@media (max-width: 620px) {
+  .app-shell {
+    width: min(100% - 20px, 1100px);
+    padding-top: 10px;
+  }
+
+  .masthead {
+    padding: 36px 26px;
+  }
+
+  .masthead::after {
+    right: -35px;
+  }
+
+  .player-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .race-topline {
+    align-items: start;
+  }
+
+  .race-status {
+    max-width: 130px;
+    font-size: 0.85rem;
+  }
+
+  .lane {
+    min-height: 67px;
+  }
+
+  .horse {
+    width: 55px;
+    height: 53px;
+    font-size: 2.5rem;
+  }
+
+  .winner-dialog {
+    padding: 30px 22px;
+  }
+}

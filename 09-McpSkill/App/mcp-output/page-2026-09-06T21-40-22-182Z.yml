@@ -1,0 +1,31 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: Greenfield Racecourse
+    - heading "Thunder Dash" [level=1] [ref=e5]
+    - paragraph [ref=e6]: Pick the field. Watch the finish.
+  - region [ref=e7]:
+    - generic [ref=e8]:
+      - paragraph [ref=e9]: Race entry
+      - heading "Name your runners" [level=2] [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e12]: Player name
+      - textbox "Player name" [disabled] [ref=e13]
+      - button "Add player" [disabled] [ref=e14]
+    - status [ref=e15]: 4 runners ready for the starting gates.
+    - list "Entered players" [ref=e16]:
+      - listitem [ref=e32]: Alice
+      - listitem [ref=e33]: Bob
+      - listitem [ref=e34]: Charlie
+      - listitem [ref=e35]: Diana
+    - button "Start race" [disabled] [ref=e17]
+  - region [ref=e36]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - paragraph [ref=e21]: Live track
+        - heading "They're off!" [level=2] [ref=e37]
+      - paragraph [ref=e23]: Every stride counts
+    - generic [ref=e24]:
+      - generic [ref=e38]: Alice
+      - generic [ref=e49]: Bob
+      - generic [ref=e60]: Charlie
+      - generic [ref=e71]: Diana

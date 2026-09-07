@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thunder Dash</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="game-shell">
+        <header class="masthead">
+            <p class="eyebrow">Greenfield Racecourse</p>
+            <h1>Thunder Dash</h1>
+            <p class="subtitle">Pick the field. Watch the finish.</p>
+        </header>
+
+        <section class="setup-panel" aria-labelledby="entry-title">
+            <div class="panel-heading">
+                <p class="section-kicker">Race entry</p>
+                <h2 id="entry-title">Name your runners</h2>
+            </div>
+            <form id="player-form" class="player-form">
+                <label class="sr-only" for="player-name">Player name</label>
+                <input id="player-name" name="player-name" type="text" maxlength="18" placeholder="Player name" autocomplete="off">
+                <button id="add-player" type="submit">Add player</button>
+            </form>
+            <p id="entry-message" class="entry-message" role="status">Add 2 to 6 players to open the gates.</p>
+            <ul id="player-list" class="player-list" aria-label="Entered players"></ul>
+            <button id="start-race" class="start-button" type="button" disabled>Start race</button>
+        </section>
+
+        <section class="race-section" aria-labelledby="race-title">
+            <div class="race-heading">
+                <div>
+                    <p class="section-kicker">Live track</p>
+                    <h2 id="race-title">The starting gates await</h2>
+                </div>
+                <p id="race-status" class="race-status">Enter your field</p>
+            </div>
+            <div id="track" class="track" aria-live="polite">
+                <div class="empty-track">The track will fill when the players arrive.</div>
+            </div>
+        </section>
+
+        <section id="classification" class="classification" hidden aria-labelledby="classification-title">
+            <p class="section-kicker">Official result</p>
+            <h2 id="classification-title">Final classification</h2>
+            <ol id="classification-list" class="classification-list"></ol>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

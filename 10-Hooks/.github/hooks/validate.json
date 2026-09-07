@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node .github/hooks/validate-stop.cjs",
+        "timeout": 30
+      }
+    ]
+  }
+}

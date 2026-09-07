@@ -1,0 +1,24 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - paragraph [ref=e4]: Greenfield Racecourse
+    - heading "Thunder Dash" [level=1] [ref=e5]
+    - paragraph [ref=e6]: Pick the field. Watch the finish.
+  - region [ref=e7]:
+    - generic [ref=e8]:
+      - paragraph [ref=e9]: Race entry
+      - heading "Name your runners" [level=2] [ref=e10]
+    - generic [ref=e11]:
+      - generic [ref=e12]: Player name
+      - textbox "Player name" [active] [ref=e13]
+      - button "Add player" [ref=e14] [cursor=pointer]
+    - status [ref=e15]: Add one more player to open the gates.
+    - list "Entered players" [ref=e16]:
+      - listitem [ref=e26]: Alice
+    - button "Start race" [disabled] [ref=e17]
+  - region [ref=e18]:
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - paragraph [ref=e21]: Live track
+        - heading "The starting gates await" [level=2] [ref=e22]
+      - paragraph [ref=e23]: Enter your field
+    - generic [ref=e24]: The track will fill when the players arrive.

@@ -1,0 +1,26 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - paragraph [ref=f1e4]: Private Track No. 08
+    - heading "Gallop Club" [level=1] [ref=f1e5]
+    - paragraph [ref=f1e6]: A small race. A serious finish.
+  - region [ref=f1e7]:
+    - generic [ref=f1e8]:
+      - paragraph [ref=f1e9]: 01 / FIELD
+      - heading "Build the field" [level=2] [ref=f1e10]
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: Player name
+      - textbox "Player name" [ref=f1e13]:
+        - /placeholder: Enter rider name
+      - button "Add player" [ref=f1e14] [cursor=pointer]
+    - paragraph [ref=f1e15]: Add 2 more players to begin.
+    - list "Players" [ref=f1e16]
+    - button "Start race" [disabled] [ref=f1e17]: Start race →
+  - region [ref=f1e18]:
+    - generic [ref=f1e19]:
+      - generic [ref=f1e20]:
+        - paragraph [ref=f1e21]: 02 / RACE DAY
+        - heading "The green course" [level=2] [ref=f1e22]
+      - paragraph [ref=f1e23]: Awaiting riders
+    - generic "Horse race track" [ref=f1e24]:
+      - generic "Finish line" [ref=f1e25]: FINISH
+      - generic [ref=f1e27]: The gates open when the field is set.

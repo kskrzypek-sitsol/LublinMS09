@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#143c35">
+  <title>Thunder Run</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="masthead" aria-labelledby="game-title">
+      <p class="eyebrow">Local race day</p>
+      <h1 id="game-title">Thunder Run</h1>
+      <p class="tagline">A quick race for the finish.</p>
+    </section>
+
+    <section id="setup-screen" class="setup-screen" aria-labelledby="setup-title">
+      <div class="section-heading">
+        <p class="section-number">01</p>
+        <h2 id="setup-title">Name the riders</h2>
+      </div>
+      <form id="setup-form" novalidate>
+        <div id="player-fields" class="player-fields"></div>
+        <p id="form-error" class="form-error" role="alert"></p>
+        <div class="setup-actions">
+          <button id="add-player" class="button button-quiet" type="button">+ Add rider</button>
+          <button class="button button-primary" type="submit">Start race <span aria-hidden="true">&rarr;</span></button>
+        </div>
+      </form>
+    </section>
+
+    <section id="race-screen" class="race-screen is-hidden" aria-labelledby="race-title">
+      <div class="race-topline">
+        <div>
+          <p class="section-number">02</p>
+          <h2 id="race-title">The track is open</h2>
+        </div>
+        <p id="race-status" class="race-status" aria-live="polite">Waiting at the gate</p>
+      </div>
+      <div id="track" class="track" aria-label="Horse racing track"></div>
+    </section>
+  </main>
+
+  <dialog id="winner-dialog" class="winner-dialog" aria-labelledby="winner-title">
+    <div class="winner-mark" aria-hidden="true">&#9733;</div>
+    <p class="eyebrow">Photo finish</p>
+    <h2 id="winner-title"><span id="winner-name">Rider</span> wins!</h2>
+    <p id="winner-detail" class="winner-detail"></p>
+    <button id="race-again" class="button button-primary" type="button">Race again <span aria-hidden="true">&rarr;</span></button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
