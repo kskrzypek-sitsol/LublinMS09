@@ -1,55 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#143c35">
-  <title>Thunder Run</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caveman Horse Derby</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="app-shell">
-    <section class="masthead" aria-labelledby="game-title">
-      <p class="eyebrow">Local race day</p>
-      <h1 id="game-title">Thunder Run</h1>
-      <p class="tagline">A quick race for the finish.</p>
-    </section>
+    <div class="page-shell">
+        <div class="sky-glow sky-glow-left"></div>
+        <div class="sky-glow sky-glow-right"></div>
 
-    <section id="setup-screen" class="setup-screen" aria-labelledby="setup-title">
-      <div class="section-heading">
-        <p class="section-number">01</p>
-        <h2 id="setup-title">Name the riders</h2>
-      </div>
-      <form id="setup-form" novalidate>
-        <div id="player-fields" class="player-fields"></div>
-        <p id="form-error" class="form-error" role="alert"></p>
-        <div class="setup-actions">
-          <button id="add-player" class="button button-quiet" type="button">+ Add rider</button>
-          <button class="button button-primary" type="submit">Start race <span aria-hidden="true">&rarr;</span></button>
-        </div>
-      </form>
-    </section>
+        <main class="game-frame">
+            <section class="hero-card">
+                <p class="eyebrow">Multiple players. One wild sprint.</p>
+                <h1>Caveman Horse Derby</h1>
+                <p class="hero-copy">Type 2 to 4 racer names. Hit start. Watch the horses fight the finish line.</p>
 
-    <section id="race-screen" class="race-screen is-hidden" aria-labelledby="race-title">
-      <div class="race-topline">
-        <div>
-          <p class="section-number">02</p>
-          <h2 id="race-title">The track is open</h2>
-        </div>
-        <p id="race-status" class="race-status" aria-live="polite">Waiting at the gate</p>
-      </div>
-      <div id="track" class="track" aria-label="Horse racing track"></div>
-    </section>
-  </main>
+                <form id="setup-form" class="setup-card">
+                    <div class="input-grid">
+                        <label class="field">
+                            <span>Racer 1</span>
+                            <input type="text" name="player" maxlength="18" placeholder="Luna" autocomplete="off">
+                        </label>
+                        <label class="field">
+                            <span>Racer 2</span>
+                            <input type="text" name="player" maxlength="18" placeholder="Blaze" autocomplete="off">
+                        </label>
+                        <label class="field">
+                            <span>Racer 3</span>
+                            <input type="text" name="player" maxlength="18" placeholder="Comet" autocomplete="off">
+                        </label>
+                        <label class="field">
+                            <span>Racer 4</span>
+                            <input type="text" name="player" maxlength="18" placeholder="Storm" autocomplete="off">
+                        </label>
+                    </div>
 
-  <dialog id="winner-dialog" class="winner-dialog" aria-labelledby="winner-title">
-    <div class="winner-mark" aria-hidden="true">&#9733;</div>
-    <p class="eyebrow">Photo finish</p>
-    <h2 id="winner-title"><span id="winner-name">Rider</span> wins!</h2>
-    <p id="winner-detail" class="winner-detail"></p>
-    <button id="race-again" class="button button-primary" type="button">Race again <span aria-hidden="true">&rarr;</span></button>
-  </dialog>
+                    <div class="controls-row">
+                        <button id="start-button" type="submit" class="primary-button">Start Race</button>
+                        <p id="setup-message" class="setup-message">Need 2 to 4 names.</p>
+                    </div>
+                </form>
+            </section>
 
-  <script src="app.js"></script>
+            <section class="stadium-card">
+                <div class="race-header">
+                    <div>
+                        <p class="label">Track status</p>
+                        <h2 id="status-text">Waiting for racers</h2>
+                    </div>
+                    <div id="countdown-chip" class="countdown-chip">-</div>
+                </div>
+
+                <div class="track-shell">
+                    <div class="track-banner">
+                        <span>Dirt track</span>
+                        <span class="finish-flag">Finish line ahead</span>
+                    </div>
+                    <div id="race-track" class="race-track" aria-live="polite"></div>
+                </div>
+            </section>
+        </main>
+
+        <section id="result-panel" class="result-panel hidden" aria-live="assertive">
+            <div class="result-card">
+                <p class="label">Winner</p>
+                <h2 id="winner-name">Nobody yet</h2>
+                <p id="winner-copy" class="winner-copy">Set the racers and begin.</p>
+                <button id="restart-button" type="button" class="primary-button">Restart Race</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
