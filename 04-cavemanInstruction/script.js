@@ -1,170 +1,146 @@
-const colors = ["#e6573c", "#397ec1", "#eeaa2d", "#8f5ca8"];
-const playerFields = document.querySelector("#player-fields");
-const countButtons = document.querySelectorAll(".count-button");
+const MAX_POSITION = 100;
+const playerColors = ["#e94f37", "#217a7e", "#5a4eac", "#d46a19"];
 const setupPanel = document.querySelector("#setup-panel");
 const racePanel = document.querySelector("#race-panel");
-const track = document.querySelector("#track");
+const nameFields = document.querySelector("#name-fields");
+const countButtons = document.querySelectorAll(".count-button");
 const startButton = document.querySelector("#start-button");
-const rematchButton = document.querySelector("#rematch-button");
-const resultsDialog = document.querySelector("#results-dialog");
-const resultsList = document.querySelector("#results-list");
-const winnerName = document.querySelector("#winner-name");
+const track = document.querySelector("#track");
 const raceStatus = document.querySelector("#race-status");
-const raceNumber = document.querySelector("#race-number");
-
+const raceButton = document.querySelector("#race-button");
+const winnerDialog = document.querySelector("#winner-dialog");
+const winnerName = document.querySelector("#winner-name");
+const replayButton = document.querySelector("#replay-button");
+const setupButton = document.querySelector("#setup-button");
 let playerCount = 2;
-let raceCount = 1;
-let racers = [];
+let players = [];
+let raceActive = false;
 let animationFrame;
 
-function renderPlayerFields() {
-  playerFields.innerHTML = "";
-
-  for (let index = 0; index < playerCount; index += 1) {
-    const field = document.createElement("label");
-    field.className = "field";
-    field.innerHTML = `
-      <span class="silk" style="background:${colors[index]}">${String(index + 1).padStart(2, "0")}</span>
-      <input type="text" maxlength="16" value="Player ${index + 1}" aria-label="Player ${index + 1} name">
-    `;
-    playerFields.append(field);
-  }
+function renderNameFields() {
+    const names = [...nameFields.querySelectorAll("input")].map((input) => input.value);
+    nameFields.replaceChildren();
+    for (let index = 0; index < playerCount; index += 1) {
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+        label.className = "field-label";
+        label.textContent = `Rider ${index + 1}`;
+        input.className = "name-input";
+        input.type = "text";
+        input.maxLength = 12;
+        input.autocomplete = "off";
+        input.value = names[index] || `Player ${index + 1}`;
+        input.setAttribute("aria-label", `Name for rider ${index + 1}`);
+        label.append(input);
+        nameFields.append(label);
+    }
 }
 
-function setPlayerCount(event) {
-  playerCount = Number(event.currentTarget.dataset.count);
-  countButtons.forEach((button) => button.classList.toggle("active", button === event.currentTarget));
-  renderPlayerFields();
-}
-
-function collectRacers() {
-  const inputs = playerFields.querySelectorAll("input");
-  racers = [...inputs].map((input, index) => ({
-    name: input.value.trim() || `Player ${index + 1}`,
-    color: colors[index],
-    progress: 0,
-    finished: false,
-    finishTime: 0,
-    element: null
-  }));
-}
-
-function renderTrack() {
-  track.innerHTML = "";
-  racers.forEach((racer) => {
-    const lane = document.createElement("div");
-    lane.className = "lane";
-    lane.innerHTML = `
-      <div class="horse" style="--silk:${racer.color}">
-        <span class="horse-icon" aria-hidden="true">♞</span>
-        <span class="horse-name">${racer.name}</span>
-      </div>
-    `;
-    racer.element = lane.querySelector(".horse");
-    track.append(lane);
-  });
+function buildTrack() {
+    track.replaceChildren();
+    players.forEach((player, index) => {
+        const lane = document.createElement("div");
+        const finish = document.createElement("div");
+        const horse = document.createElement("div");
+        const horseIcon = document.createElement("span");
+        const horseName = document.createElement("span");
+        lane.className = "lane";
+        lane.style.setProperty("--lane-color", index % 2 === 0 ? "#e6f3dc" : "#f9dfad");
+        finish.className = "finish-line";
+        horse.className = "horse";
+        horse.id = `horse-${index}`;
+        horse.style.setProperty("--rider-color", player.color);
+        horseIcon.className = "horse-icon";
+        horseIcon.textContent = "Horse";
+        horseIcon.setAttribute("aria-hidden", "true");
+        horseName.className = "horse-name";
+        horseName.textContent = player.name;
+        horse.append(horseIcon, horseName);
+        lane.append(finish, horse);
+        track.append(lane);
+    });
 }
 
 function startRace() {
-  collectRacers();
-  renderTrack();
-  setupPanel.classList.add("hidden");
-  racePanel.classList.remove("hidden");
-  raceStatus.textContent = "And they are running!";
+    const inputs = nameFields.querySelectorAll("input");
+    players = [...inputs].map((input, index) => ({
+        name: input.value.trim() || `Player ${index + 1}`,
+        color: playerColors[index],
+        position: 0,
+        speed: 0.16 + Math.random() * 0.008,
+    }));
+    raceActive = false;
+    buildTrack();
+    raceStatus.textContent = "Horses ready. Press GOGOGOGO.";
+    setupPanel.classList.add("hidden");
+    racePanel.classList.remove("hidden");
+    raceButton.disabled = false;
+    raceButton.focus();
+}
 
-  const startedAt = performance.now();
-  const finishDistance = 84;
+function endRace(winner) {
+    raceActive = false;
+    window.cancelAnimationFrame(animationFrame);
+    raceButton.disabled = false;
+    raceButton.textContent = "RACE AGAIN";
+    raceStatus.textContent = `${winner.name} crossed first.`;
+    winnerName.textContent = winner.name;
+    document.querySelector("#winner-copy").textContent = `${winner.name}'s horse reached the finish line first.`;
+    window.setTimeout(() => winnerDialog.showModal(), 750);
+}
 
-  function raceFrame(now) {
-    let finishedCount = 0;
+function runRace() {
+    if (raceActive) return;
+    raceActive = true;
+    raceButton.disabled = true;
+    raceButton.textContent = "RACING...";
+    raceStatus.textContent = "They are off!";
 
-    racers.forEach((racer) => {
-      if (racer.finished) {
-        finishedCount += 1;
-        return;
-      }
+    const advance = () => {
+        const finishers = [];
+        players.forEach((player, index) => {
+            const variation = 0.78 + Math.random() * 0.44;
+            const previousPosition = player.position;
+            const distance = player.speed * variation;
+            player.position += distance;
+            const horse = document.querySelector(`#horse-${index}`);
+            horse.style.left = `${Math.min(92, 2 + player.position * 0.9)}%`;
+            horse.classList.add("moving");
+            if (player.position >= MAX_POSITION) {
+                finishers.push({
+                    player,
+                    crossingPoint: (MAX_POSITION - previousPosition) / distance,
+                });
+            }
+        });
 
-      const pace = 0.14 + Math.random() * 0.39;
-      racer.progress = Math.min(finishDistance, racer.progress + pace);
-      racer.element.style.left = `${racer.progress}%`;
+        if (finishers.length) {
+            finishers.sort((first, second) => first.crossingPoint - second.crossingPoint);
+            endRace(finishers[0].player);
+            return;
+        }
+        animationFrame = window.requestAnimationFrame(advance);
+    };
 
-      if (racer.progress >= finishDistance) {
-        racer.finished = true;
-        racer.finishTime = now - startedAt;
-        finishedCount += 1;
-      }
+    animationFrame = window.requestAnimationFrame(advance);
+}
+
+countButtons.forEach((button) => button.addEventListener("click", () => {
+    playerCount = Number(button.dataset.count);
+    countButtons.forEach((countButton) => {
+        const active = countButton === button;
+        countButton.classList.toggle("active", active);
+        countButton.setAttribute("aria-pressed", String(active));
     });
-
-    if (finishedCount === racers.length) {
-      finishRace();
-      return;
-    }
-
-    animationFrame = requestAnimationFrame(raceFrame);
-  }
-
-  animationFrame = requestAnimationFrame(raceFrame);
-}
-
-function finishRace() {
-  const ranking = [...racers].sort((first, second) => first.finishTime - second.finishTime);
-  raceStatus.textContent = "Photo finish confirmed";
-  winnerName.textContent = ranking[0].name;
-  resultsList.innerHTML = ranking.map((racer, index) => `
-    <li><span>${racer.name}</span><strong>${index === 0 ? "WINNER" : "FINISHED"}</strong></li>
-  `).join("");
-  window.setTimeout(() => resultsDialog.showModal(), 500);
-}
-
-function rematch() {
-  cancelAnimationFrame(animationFrame);
-  resultsDialog.close();
-  raceCount += 1;
-  raceNumber.textContent = String(raceCount).padStart(2, "0");
-  racers.forEach((racer) => {
-    racer.progress = 0;
-    racer.finished = false;
-    racer.finishTime = 0;
-  });
-  renderTrack();
-  raceStatus.textContent = "Horses at the gate";
-  window.setTimeout(() => {
-    raceStatus.textContent = "And they are running!";
-    startRaceFromCurrentRacers();
-  }, 350);
-}
-
-function startRaceFromCurrentRacers() {
-  const startedAt = performance.now();
-  const finishDistance = 84;
-
-  function raceFrame(now) {
-    let finishedCount = 0;
-    racers.forEach((racer) => {
-      if (racer.finished) {
-        finishedCount += 1;
-        return;
-      }
-      racer.progress = Math.min(finishDistance, racer.progress + 0.14 + Math.random() * 0.39);
-      racer.element.style.left = `${racer.progress}%`;
-      if (racer.progress >= finishDistance) {
-        racer.finished = true;
-        racer.finishTime = now - startedAt;
-        finishedCount += 1;
-      }
-    });
-
-    if (finishedCount === racers.length) {
-      finishRace();
-      return;
-    }
-    animationFrame = requestAnimationFrame(raceFrame);
-  }
-
-  animationFrame = requestAnimationFrame(raceFrame);
-}
-
-countButtons.forEach((button) => button.addEventListener("click", setPlayerCount));
+    renderNameFields();
+}));
 startButton.addEventListener("click", startRace);
-rematchButton.addEventListener("click", rematch);
-renderPlayerFields();
+raceButton.addEventListener("click", runRace);
+replayButton.addEventListener("click", () => { winnerDialog.close(); startRace(); });
+setupButton.addEventListener("click", () => {
+    winnerDialog.close();
+    racePanel.classList.add("hidden");
+    setupPanel.classList.remove("hidden");
+    nameFields.querySelector("input").focus();
+});
+renderNameFields();

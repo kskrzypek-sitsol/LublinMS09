@@ -1,75 +1,526 @@
 :root {
-    --ink: #16211d;
-    --paper: #f7f1e4;
-    --sun: #f7bd24;
-    --orange: #de642e;
-    --grass: #328a57;
-    --cream: #fffaf0;
-    --line: #d7cdb9;
+    --ink: #17211b;
+    --muted: #607067;
+    --paper: #f6f1e6;
+    --panel: #fffdf7;
+    --rail: #f7eee0;
+    --green: #18392b;
+    --green-bright: #2d6b48;
+    --red: #a43b32;
+    --gold: #e4b64e;
+    --line: #d8cdbb;
+    --shadow: 0 18px 45px rgb(24 57 43 / 14%);
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
+    min-width: 320px;
+    min-height: 100vh;
     margin: 0;
     color: var(--ink);
-    background-color: var(--paper);
-    background-image: linear-gradient(90deg, rgba(22, 33, 29, 0.035) 1px, transparent 1px), linear-gradient(rgba(22, 33, 29, 0.035) 1px, transparent 1px);
-    background-size: 22px 22px;
-    font-family: "Source Sans 3", sans-serif;
+    background:
+        linear-gradient(90deg, rgb(255 255 255 / 18%) 1px, transparent 1px) 0 0 / 24px 24px,
+        linear-gradient(rgb(255 255 255 / 18%) 1px, transparent 1px) 0 0 / 24px 24px,
+        #dce5d5;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
-button, input { font: inherit; }
-button { cursor: pointer; }
+button,
+input {
+    font: inherit;
+}
 
-.app-shell { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 52px 0 72px; }
-.masthead { border-bottom: 3px solid var(--ink); padding-bottom: 28px; margin-bottom: 32px; }
-.eyebrow, .section-number { margin: 0; color: var(--orange); font: 500 0.8rem "DM Mono", monospace; letter-spacing: 0.08em; }
-h1, h2 { margin: 0; font-family: "Racing Sans One", sans-serif; font-weight: 400; letter-spacing: 0; }
-h1 { font-size: clamp(3.2rem, 10vw, 6.8rem); line-height: 0.88; }
-h1 span { color: var(--orange); }
-.subtitle { margin: 15px 0 0; font-size: 1.15rem; }
+button {
+    cursor: pointer;
+}
 
-.setup-panel, .race-section, .results-section { padding: 24px 0; border-bottom: 1px solid var(--line); }
-.section-heading { display: flex; align-items: flex-start; gap: 14px; }
-.section-number { padding-top: 5px; }
-h2 { font-size: 1.7rem; line-height: 1; }
-.section-heading div p { margin: 5px 0 0; color: #5c675e; }
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
 
-.player-form { display: flex; gap: 10px; margin-top: 20px; }
-.player-form input { min-width: 0; flex: 1; border: 1px solid var(--ink); border-radius: 3px; background: var(--cream); padding: 11px 14px; outline-color: var(--orange); }
-.player-form button, .start-button { border: 1px solid var(--ink); border-radius: 3px; padding: 11px 18px; background: var(--sun); color: var(--ink); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-.player-form button:hover, .start-button:not(:disabled):hover { background: var(--orange); color: white; }
-.message { min-height: 1.35em; margin: 8px 0 0; color: #a93f22; font-weight: 600; }
-.player-list { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0 0; list-style: none; }
-.player-list li { display: flex; gap: 8px; align-items: center; border: 1px solid var(--ink); border-radius: 3px; padding: 5px 7px 5px 10px; background: var(--cream); font-weight: 600; }
-.remove-player { width: 24px; height: 24px; padding: 0; border: 0; border-radius: 2px; color: var(--ink); background: #eadfc9; font-size: 1.1rem; line-height: 1; }
-.remove-player:hover { background: var(--orange); color: white; }
+.game-shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
 
-.race-toolbar { display: flex; justify-content: space-between; gap: 18px; align-items: center; margin-bottom: 18px; }
-.start-button { align-self: flex-end; white-space: nowrap; }
-.start-button:disabled { cursor: not-allowed; border-color: #9ca49b; background: #d6d4ca; color: #7a827a; }
-.track-wrap { position: relative; overflow: hidden; border: 3px solid var(--ink); background: var(--grass); box-shadow: 6px 6px 0 var(--ink); }
-.track { position: relative; z-index: 1; min-height: 168px; padding: 0 13%; background-image: repeating-linear-gradient(0deg, transparent 0, transparent 47px, rgba(255, 255, 255, 0.45) 48px, rgba(255, 255, 255, 0.45) 50px); }
-.empty-track { margin: 0; min-height: 162px; display: grid; place-items: center; color: rgba(255, 255, 255, 0.8); font: 1.3rem "DM Mono", monospace; }
-.finish-line { position: absolute; z-index: 2; top: 0; right: 9%; width: 34px; height: 100%; background-color: white; background-image: conic-gradient(#1c2822 25%, white 0 50%, #1c2822 0 75%, white 0); background-size: 16px 16px; border-inline: 2px solid var(--ink); }
-.finish-line span { position: absolute; top: 5px; left: 50%; transform: translateX(-50%) rotate(90deg); color: var(--ink); font: 500 0.62rem "DM Mono", monospace; letter-spacing: 0.06em; }
-.lane { position: relative; height: 50px; }
-.horse { position: absolute; top: 6px; left: 0; display: flex; align-items: center; gap: 7px; min-width: max-content; color: white; font-size: 1rem; font-weight: 700; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.28); transition: filter 180ms; }
-.horse-icon { font-size: 2rem; line-height: 1; filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, 0.2)); }
-.horse.is-finished { filter: brightness(1.25); }
+.game-header,
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
 
-.results-section { border-bottom: 3px solid var(--ink); }
-.results-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 9px; padding: 0; margin: 20px 0 0; list-style-position: inside; counter-reset: result; }
-.results-list li { counter-increment: result; padding: 12px; border: 1px solid var(--ink); border-radius: 3px; background: var(--cream); font-weight: 700; }
-.results-list li::before { content: counter(result) ". "; color: var(--orange); font-family: "DM Mono", monospace; }
+.game-header {
+    padding: 26px 30px;
+    color: white;
+    background: var(--green);
+    border-bottom: 5px solid var(--gold);
+    box-shadow: var(--shadow);
+}
 
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
-@media (max-width: 560px) {
-    .app-shell { width: min(100% - 24px, 1080px); padding-top: 32px; }
-    .player-form, .race-toolbar { align-items: stretch; flex-direction: column; }
-    .start-button { align-self: stretch; }
-    .track { padding: 0 17%; }
-    .finish-line { right: 11%; }
-    .horse { font-size: 0.84rem; }
+h1,
+h2,
+h3,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    margin-bottom: 0;
+    font-size: clamp(2.25rem, 8vw, 4.8rem);
+    line-height: 0.9;
+    letter-spacing: 0;
+}
+
+h2 {
+    margin-bottom: 6px;
+    font-size: clamp(1.55rem, 4vw, 2.25rem);
+    letter-spacing: 0;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+    color: var(--gold);
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+.player-count {
+    min-width: 92px;
+    text-align: right;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.player-count strong,
+.player-count span {
+    display: block;
+}
+
+.player-count strong {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.player-count span {
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: #cfdcd4;
+}
+
+.setup-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.35fr);
+    gap: 22px 36px;
+    padding: 28px 30px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-top: 0;
+}
+
+.setup-copy p,
+.form-message {
+    color: var(--muted);
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.setup-copy p {
+    margin-bottom: 0;
+}
+
+.player-form {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+}
+
+.player-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+
+.input-row input {
+    min-width: 0;
+    padding: 13px 14px;
+    color: var(--ink);
+    background: white;
+    border: 1px solid #b8b1a5;
+    border-right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.input-row button,
+.start-button {
+    color: white;
+    background: var(--red);
+    border: 0;
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: 800;
+}
+
+.input-row button {
+    padding: 0 18px;
+    border-radius: 0 3px 3px 0;
+}
+
+.input-row button:hover,
+.start-button:hover:not(:disabled) {
+    background: #842d27;
+}
+
+.form-message {
+    min-height: 1.2em;
+    margin: 9px 0 0;
+    font-size: 0.78rem;
+}
+
+.form-message.error {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.roster-wrap {
+    min-width: 0;
+}
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 36px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.player-list:empty::after {
+    content: "No players yet";
+    color: #8a958e;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+}
+
+.player-chip {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    padding-left: 12px;
+    background: #edf1e9;
+    border: 1px solid #c8d1c6;
+    border-radius: 3px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.85rem;
+}
+
+.player-chip span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.remove-player {
+    width: 34px;
+    height: 34px;
+    margin-left: 8px;
+    color: var(--red);
+    background: transparent;
+    border: 0;
+    border-left: 1px solid #c8d1c6;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.start-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 3px;
+}
+
+.start-button:disabled,
+.input-row button:disabled,
+input:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.race-section {
+    margin-top: 30px;
+}
+
+.section-heading {
+    margin-bottom: 14px;
+}
+
+.section-heading .eyebrow,
+.results .eyebrow {
+    color: var(--red);
+}
+
+.section-heading h2 {
+    margin-bottom: 0;
+}
+
+.race-status {
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.race-track {
+    position: relative;
+    overflow: hidden;
+    min-height: 170px;
+    padding: 12px 0;
+    background: #9b6040;
+    border: 8px solid white;
+    box-shadow: var(--shadow);
+}
+
+.race-track::before {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 92%;
+    width: 12px;
+    background-color: white;
+    background-image:
+        linear-gradient(45deg, #202020 25%, transparent 25%, transparent 75%, #202020 75%),
+        linear-gradient(45deg, #202020 25%, transparent 25%, transparent 75%, #202020 75%);
+    background-position: 0 0, 6px 6px;
+    background-size: 12px 12px;
+    box-shadow: 0 0 0 2px rgb(255 255 255 / 55%);
+}
+
+.race-track.empty::before {
+    display: none;
+}
+
+.empty-track-message {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    color: rgb(255 255 255 / 78%);
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.empty-track-message span {
+    font-size: 2.4rem;
+}
+
+.empty-track-message p {
+    margin: 8px 0 0;
+}
+
+.lane {
+    position: relative;
+    height: 76px;
+    border-bottom: 2px dashed rgb(255 255 255 / 45%);
+}
+
+.lane:last-child {
+    border-bottom: 0;
+}
+
+.lane::before {
+    content: attr(data-lane);
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: rgb(255 255 255 / 60%);
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+}
+
+.horse {
+    --progress: 7;
+    position: absolute;
+    z-index: 3;
+    top: 13px;
+    left: calc(var(--progress) * 1%);
+    display: grid;
+    width: 66px;
+    justify-items: center;
+    transform: translateX(-50%);
+    will-change: left;
+}
+
+.horse-icon {
+    display: block;
+    font-size: 2rem;
+    filter: drop-shadow(0 3px 1px rgb(54 26 14 / 28%));
+    transform: scaleX(-1);
+}
+
+.horse-name {
+    display: block;
+    overflow: hidden;
+    max-width: 110px;
+    padding: 2px 7px;
+    color: white;
+    background: var(--green);
+    border-radius: 2px;
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.horse.running .horse-icon {
+    animation: gallop 320ms ease-in-out infinite alternate;
+}
+
+.horse.finished .horse-name {
+    color: var(--ink);
+    background: var(--gold);
+}
+
+.results {
+    margin-top: 30px;
+    padding: 28px 30px;
+    background: var(--panel);
+    border-top: 5px solid var(--gold);
+    box-shadow: var(--shadow);
+    animation: reveal 450ms ease-out both;
+}
+
+.results[hidden] {
+    display: none;
+}
+
+.classification {
+    display: grid;
+    gap: 8px;
+    margin: 18px 0 0;
+    padding: 0;
+    counter-reset: placing;
+    list-style: none;
+}
+
+.classification li {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    align-items: center;
+    min-height: 48px;
+    padding: 8px 14px 8px 0;
+    background: #edf1e9;
+    border-left: 4px solid var(--green-bright);
+    font-family: "Trebuchet MS", sans-serif;
+    font-weight: 800;
+    counter-increment: placing;
+}
+
+.classification li::before {
+    content: counter(placing) ".";
+    text-align: center;
+    color: var(--red);
+}
+
+@keyframes gallop {
+    from { transform: scaleX(-1) translateY(1px) rotate(-2deg); }
+    to { transform: scaleX(-1) translateY(-3px) rotate(2deg); }
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 680px) {
+    .game-shell {
+        width: min(100% - 20px, 560px);
+        padding-top: 10px;
+    }
+
+    .game-header,
+    .setup-panel,
+    .results {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .setup-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .player-form {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .start-button {
+        width: 100%;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .race-status {
+        margin-bottom: 0;
+    }
+
+    .lane {
+        height: 70px;
+    }
+
+    .horse {
+        width: 52px;
+    }
+
+    .horse-icon {
+        font-size: 1.7rem;
+    }
+
+    .horse-name {
+        max-width: 72px;
+        font-size: 0.6rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }

@@ -1,6 +1,7 @@
 ---
 name: Game Developer
 description: Implements simple browser games based on an approved implementation plan.
+tools: [read, search, edit, execute]
 ---
 
 # Game Developer

@@ -1,12 +1,7 @@
 ---
 name: Game Developer
 description: Implements simple browser games based on an approved implementation plan.
-tools:
-  - edit
-  - search/codebase
-  - read/terminalLastCommand
-  - execute
-  - playwright/*
+tools: [read, search, edit, execute, playwright/*]
 ---
 
 # Game Developer

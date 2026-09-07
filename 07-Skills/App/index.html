@@ -1,69 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thunder Track</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Racing+Sans+One&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#18392b">
+    <title>Finish Line</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <main class="app-shell">
-        <header class="masthead">
-            <p class="eyebrow">MULTI-PLAYER DERBY</p>
-            <h1>THUNDER <span>TRACK</span></h1>
-            <p class="subtitle">Enter the field. Chase the ribbon.</p>
+    <main class="game-shell">
+        <header class="game-header">
+            <div>
+                <p class="eyebrow">Race day</p>
+                <h1>Finish Line</h1>
+            </div>
+            <div class="player-count" aria-live="polite">
+                <strong id="player-count">0</strong>
+                <span>of 8 runners</span>
+            </div>
         </header>
 
-        <section class="setup-panel" aria-labelledby="players-title">
-            <div class="section-heading">
-                <p class="section-number">01</p>
-                <div>
-                    <h2 id="players-title">Build the field</h2>
-                    <p>2 to 6 riders enter the race.</p>
-                </div>
+        <section class="setup-panel" aria-labelledby="setup-heading">
+            <div class="setup-copy">
+                <h2 id="setup-heading">Starting roster</h2>
+                <p>Add 2-8 players, then send them to the track.</p>
             </div>
-            <form class="player-form" id="player-form">
-                <label class="sr-only" for="player-name">Player name</label>
-                <input id="player-name" type="text" maxlength="18" placeholder="Rider name" autocomplete="off">
-                <button type="submit" id="add-player">Add player</button>
+
+            <form id="player-form" class="player-form" novalidate>
+                <label for="player-name">Player name</label>
+                <div class="input-row">
+                    <input id="player-name" name="playerName" type="text" maxlength="30" autocomplete="off" placeholder="Enter a name" aria-describedby="form-message">
+                    <button id="add-player" type="submit">Add Player</button>
+                </div>
+                <p id="form-message" class="form-message" aria-live="polite">Add at least 2 players to race.</p>
             </form>
-            <p class="message" id="setup-message" aria-live="polite"></p>
-            <ul class="player-list" id="player-list" aria-label="Players"></ul>
+
+            <div class="roster-wrap">
+                <h3>Players</h3>
+                <ol id="player-list" class="player-list" aria-label="Player roster"></ol>
+            </div>
+
+            <button id="start-race" class="start-button" type="button" disabled>
+                <span aria-hidden="true">🏁</span>
+                Start Race
+            </button>
         </section>
 
-        <section class="race-section" aria-labelledby="race-title">
-            <div class="race-toolbar">
-                <div class="section-heading">
-                    <p class="section-number">02</p>
-                    <div>
-                        <h2 id="race-title">The race</h2>
-                        <p id="race-status">Add at least two players to start.</p>
-                    </div>
-                </div>
-                <button class="start-button" id="start-race" type="button" disabled>Start race</button>
-            </div>
-            <div class="track-wrap">
-                <div class="finish-line" aria-label="Finish line"><span>FINISH</span></div>
-                <div class="track" id="race-track" aria-live="polite">
-                    <p class="empty-track">The gates are waiting.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="results-section" id="results-section" hidden aria-labelledby="results-title">
+        <section class="race-section" aria-labelledby="track-heading">
             <div class="section-heading">
-                <p class="section-number">03</p>
                 <div>
-                    <h2 id="results-title">Final classification</h2>
-                    <p>Every stride counted.</p>
+                    <p class="eyebrow">Main event</p>
+                    <h2 id="track-heading">The track</h2>
+                </div>
+                <p id="race-status" class="race-status" aria-live="polite">Waiting for runners</p>
+            </div>
+            <div id="race-track" class="race-track empty" aria-label="Horse race track">
+                <div class="empty-track-message">
+                    <span aria-hidden="true">♞</span>
+                    <p>Added players appear here.</p>
                 </div>
             </div>
-            <ol class="results-list" id="results-list"></ol>
+        </section>
+
+        <section id="results" class="results" aria-labelledby="results-heading" hidden>
+            <p class="eyebrow">Official result</p>
+            <h2 id="results-heading">Final classification</h2>
+            <ol id="classification" class="classification"></ol>
         </section>
     </main>
-    <script src="script.js"></script>
 </body>
 </html>

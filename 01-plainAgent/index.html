@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Derby Dash — Horse Racing</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div class="app">
+        <header class="masthead">
+            <h1><span class="masthead__icon">🏇</span> Derby Dash</h1>
+            <p class="masthead__tagline">Mash your key. Pace your stamina. Win the cup.</p>
+        </header>
+
+        <!-- ───────────────────────── SETUP ───────────────────────── -->
+        <section id="setup-screen" class="screen screen--active">
+            <div class="panel">
+                <div class="panel__row">
+                    <label class="field">
+                        <span class="field__label">Racers</span>
+                        <select id="racer-count" class="select">
+                            <option value="2">2 horses</option>
+                            <option value="3">3 horses</option>
+                            <option value="4" selected>4 horses</option>
+                            <option value="5">5 horses</option>
+                            <option value="6">6 horses</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span class="field__label">Track length</span>
+                        <select id="track-length" class="select">
+                            <option value="0.7">Sprint</option>
+                            <option value="1" selected>Classic</option>
+                            <option value="1.5">Marathon</option>
+                        </select>
+                    </label>
+                </div>
+                <p class="hint">Click a key badge to rebind it. Switch a racer to <strong>CPU</strong> to race
+                    solo.</p>
+            </div>
+
+            <div id="racer-list" class="racer-list"></div>
+
+            <button id="start-btn" class="btn btn--primary btn--xl">Start the race</button>
+        </section>
+
+        <!-- ───────────────────────── RACE ───────────────────────── -->
+        <section id="race-screen" class="screen">
+            <div class="stadium">
+                <div class="sky">
+                    <div class="sun"></div>
+                    <div class="cloud cloud--1"></div>
+                    <div class="cloud cloud--2"></div>
+                    <div class="cloud cloud--3"></div>
+                    <div class="crowd"></div>
+                </div>
+                <div id="lanes" class="lanes"></div>
+                <div class="stadium__footer">
+                    <span id="race-clock" class="clock">0.00s</span>
+                    <button id="quit-btn" class="btn btn--ghost">Abandon race</button>
+                </div>
+            </div>
+
+            <div id="countdown" class="countdown" hidden>
+                <span id="countdown-text" class="countdown__text">3</span>
+            </div>
+        </section>
+
+        <!-- ─────────────────────── RESULTS ─────────────────────── -->
+        <section id="results-screen" class="screen">
+            <h2 class="results__title">Photo finish!</h2>
+            <div id="podium" class="podium"></div>
+            <ol id="result-list" class="result-list"></ol>
+            <div class="results__actions">
+                <button id="again-btn" class="btn btn--primary">Race again</button>
+                <button id="change-btn" class="btn btn--ghost">Change racers</button>
+            </div>
+        </section>
+    </div>
+
+    <div id="confetti" class="confetti" aria-hidden="true"></div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>

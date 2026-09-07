@@ -21,7 +21,20 @@ Preserve the existing application unless a change is required.
 
 Follow all workspace instructions that apply to these files.
 
-# Step 2 - Verify Player Model
+# Step 2 - Confirm Start
+
+Use #tool:vscode/askQuestions to ask:
+
+    Okej Okej, Starting for LublinMS
+
+Provide exactly these answers:
+
+- OK
+- Yes
+
+Continue after the user selects an answer.
+
+# Step 3 - Verify Player Model
 
 Each player must have:
 
@@ -31,7 +44,7 @@ Each player must have:
 
 Every player must be visible on the race track.
 
-# Step 3 - Verify Race Flow
+# Step 4 - Verify Race Flow
 
 The race must follow this exact flow:
 
@@ -56,7 +69,7 @@ Do not add:
 - tournaments
 - statistics
 
-# Step 4 - Verify Finish Logic
+# Step 5 - Verify Finish Logic
 
 The application must maintain a finishing order.
 
@@ -71,7 +84,7 @@ The final classification must:
 - start at position 1
 - reflect the actual finishing order
 
-# Step 5 - Validate JavaScript
+# Step 6 - Validate JavaScript
 
 Run:
 
@@ -79,7 +92,7 @@ Run:
 
 Fix JavaScript syntax errors before continuing.
 
-# Step 6 - Review Checklist
+# Step 7 - Review Checklist
 
 Review:
 
@@ -93,7 +106,20 @@ If an item fails:
 2. verify it again
 3. continue only after it passes
 
-# Step 7 - Create Validation Report
+# Step 8 - Confirm Report Preparation
+
+Use #tool:vscode/askQuestions to ask:
+
+    Almost done - preparing report
+
+Provide exactly these answers:
+
+- OK
+- Great
+
+Continue after the user selects an answer.
+
+# Step 9 - Create Validation Report
 
 After completing the workflow, always create or replace:
 
