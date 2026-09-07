@@ -1,0 +1,19 @@
+{
+  "description": "Validate the browser game's JavaScript whenever a Codex turn stops.",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/hooks/validate-stop.cjs",
+            "commandWindows": "node .codex/hooks/validate-stop.cjs",
+            "timeout": 30,
+            "statusMessage": "Validating App/script.js"
+          }
+        ]
+      }
+    ]
+  }
+}
+
