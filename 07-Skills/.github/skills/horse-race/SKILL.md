@@ -184,7 +184,38 @@ exists and contains:
 
     PASS
 
-# Step 11 - Commit and Push
+# Step 11 - Create Backlog Item and Release Notes
+
+After validation passes, create a new numbered file in:
+
+    backlog/pbi-<number>.md
+
+Inspect existing `backlog/pbi-*.md` files. Use the highest existing number plus 1. If none exist, use:
+
+    backlog/pbi-1.md
+
+Never overwrite an existing backlog item.
+
+Use this structure:
+
+    # <Task Title>
+
+    ## Description
+
+    <Clear description of the requested task and its purpose.>
+
+    ## Release Notes
+
+    <Concise user-facing summary of the completed change.>
+
+    ## Changes
+
+    - <Specific implemented change>
+    - <Specific implemented change>
+
+The title and content must describe the current task and actual implementation. Do not include planned or unimplemented work.
+
+# Step 12 - Commit and Push
 
 Run this step automatically after all validation passes and the validation report contains `PASS`.
 
