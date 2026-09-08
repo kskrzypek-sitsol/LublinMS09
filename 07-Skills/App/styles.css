@@ -224,15 +224,26 @@ h3 {
 }
 
 .player-chip {
+    position: relative;
     display: inline-flex;
     align-items: center;
     max-width: 100%;
-    padding-left: 12px;
+    padding-left: 22px;
     background: #edf1e9;
-    border: 1px solid #c8d1c6;
+    border: 1px solid var(--player-color);
     border-radius: 3px;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 0.85rem;
+}
+
+.player-chip::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    width: 8px;
+    height: 20px;
+    background: var(--player-color);
+    border-radius: 2px;
 }
 
 .player-chip span {
@@ -381,9 +392,12 @@ input:disabled {
 
 .horse-icon {
     display: block;
-    font-size: 2rem;
+    width: 52px;
+    height: 34px;
+    background: var(--player-color);
     filter: drop-shadow(0 3px 1px rgb(54 26 14 / 28%));
-    transform: scaleX(-1);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 42'%3E%3Cellipse cx='29' cy='20' rx='18' ry='10'/%3E%3Cpath d='M40 17 48 5l8 2 5 9-4 7-11-2-5 7zM49 7l1-7 5 7zM56 8l6-5-2 8zM13 17 2 9l4 13 9 6zM17 27l5 1-4 14h-5zM29 28h5l3 14h-5zM39 25l5-1 8 14-4 3zM21 27h5l-2 15h-5z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 42'%3E%3Cellipse cx='29' cy='20' rx='18' ry='10'/%3E%3Cpath d='M40 17 48 5l8 2 5 9-4 7-11-2-5 7zM49 7l1-7 5 7zM56 8l6-5-2 8zM13 17 2 9l4 13 9 6zM17 27l5 1-4 14h-5zM29 28h5l3 14h-5zM39 25l5-1 8 14-4 3zM21 27h5l-2 15h-5z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 .horse-name {
@@ -391,8 +405,9 @@ input:disabled {
     overflow: hidden;
     max-width: 110px;
     padding: 2px 7px;
-    color: white;
-    background: var(--green);
+    color: var(--ink);
+    background: var(--panel);
+    border-left: 4px solid var(--player-color);
     border-radius: 2px;
     font-family: "Trebuchet MS", sans-serif;
     font-size: 0.68rem;
@@ -408,6 +423,7 @@ input:disabled {
 .horse.finished .horse-name {
     color: var(--ink);
     background: var(--gold);
+    border-left-color: var(--player-color);
 }
 
 .results {
@@ -439,7 +455,7 @@ input:disabled {
     min-height: 48px;
     padding: 8px 14px 8px 0;
     background: #edf1e9;
-    border-left: 4px solid var(--green-bright);
+    border-left: 8px solid var(--player-color);
     font-family: "Trebuchet MS", sans-serif;
     font-weight: 800;
     counter-increment: placing;
@@ -452,8 +468,8 @@ input:disabled {
 }
 
 @keyframes gallop {
-    from { transform: scaleX(-1) translateY(1px) rotate(-2deg); }
-    to { transform: scaleX(-1) translateY(-3px) rotate(2deg); }
+    from { transform: translateY(1px) rotate(-2deg); }
+    to { transform: translateY(-3px) rotate(2deg); }
 }
 
 @keyframes reveal {
@@ -506,7 +522,8 @@ input:disabled {
     }
 
     .horse-icon {
-        font-size: 1.7rem;
+        width: 45px;
+        height: 30px;
     }
 
     .horse-name {

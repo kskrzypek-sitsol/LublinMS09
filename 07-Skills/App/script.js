@@ -16,6 +16,16 @@ const oscpMinimumPlayers = 2;
 const oscpMaximumPlayers = 8;
 const oscpStartProgress = 7;
 const oscpFinishProgress = 92;
+const oscpPlayerColors = [
+    "#c62828",
+    "#1565c0",
+    "#2e7d32",
+    "#6a1b9a",
+    "#ef6c00",
+    "#00838f",
+    "#ad1457",
+    "#f9a825"
+];
 const oscpPlayers = [];
 const oscpFinishingOrder = [];
 let oscpNextPlayerId = 1;
@@ -28,9 +38,28 @@ function oscpSetMessage(message, isError) {
 }
 
 function oscpCreatePlayer(name) {
+    let color = oscpPlayerColors[0];
+
+    for (const candidateColor of oscpPlayerColors) {
+        let colorInUse = false;
+
+        for (const player of oscpPlayers) {
+            if (player.color === candidateColor) {
+                colorInUse = true;
+                break;
+            }
+        }
+
+        if (!colorInUse) {
+            color = candidateColor;
+            break;
+        }
+    }
+
     const player = {
         id: oscpNextPlayerId,
         name,
+        color,
         progress: oscpStartProgress,
         baseSpeed: 0,
         finished: false
@@ -49,6 +78,7 @@ function oscpRenderRoster() {
         const removeButton = document.createElement("button");
 
         item.className = "player-chip";
+        item.style.setProperty("--player-color", player.color);
         name.textContent = player.name;
         removeButton.className = "remove-player";
         removeButton.type = "button";
@@ -74,11 +104,12 @@ function oscpCreateLane(player, laneNumber) {
 
     lane.className = "lane";
     lane.dataset.lane = `LANE ${laneNumber}`;
+    lane.style.setProperty("--player-color", player.color);
     horse.className = "horse";
     horse.id = `horse-${player.id}`;
     horse.style.setProperty("--progress", String(player.progress));
+    horse.setAttribute("aria-label", `${player.name}'s horse`);
     horseIcon.className = "horse-icon";
-    horseIcon.textContent = "🐎";
     horseIcon.setAttribute("aria-hidden", "true");
     horseName.className = "horse-name";
     horseName.textContent = player.name;
@@ -277,6 +308,7 @@ function oscpRenderClassification() {
     for (const player of oscpFinishingOrder) {
         const item = document.createElement("li");
         item.textContent = player.name;
+        item.style.setProperty("--player-color", player.color);
         oscpClassification.append(item);
     }
 }
