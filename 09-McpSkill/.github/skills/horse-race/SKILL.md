@@ -7,7 +7,34 @@ description: Use this skill whenever creating, implementing, modifying, improvin
 
 Use this workflow whenever working on the horse racing game.
 
-# Step 1 - Inspect Existing Application
+The purpose of this skill is to ensure that the game follows a repeatable implementation, validation, and delivery process.
+
+# Step 1 - Prepare Git Branch
+
+Determine the current branch with:
+
+    git branch --show-current
+
+If the current branch is `develop`, `main`, or `master`:
+
+1. get the current local date and time
+2. format it as `yyMMddHHmm`
+3. derive a short, meaningful camelCase name from the requested change
+4. create and switch to:
+
+   feature/<yyMMddHHmm>-<changeName>
+
+Example for 2026-09-08 10:44 and a skill update:
+
+    feature/2609081044-skillUpdate
+
+Use the actual creation time. Never copy the example timestamp literally.
+
+If the current branch starts with `feature/`, keep using that branch. Do not create another branch.
+
+If the current branch has any other name, keep using it unless the user explicitly requests a new branch.
+
+# Step 2 - Inspect Existing Application
 
 Inspect:
 
@@ -17,9 +44,22 @@ Inspect:
 
 Preserve the existing application unless a change is required.
 
-Follow all applicable workspace and file-specific instructions.
+Follow all workspace instructions that apply to these files.
 
-# Step 2 - Verify Players
+# Step 3 - Confirm Start
+
+Use #tool:vscode/askQuestions to ask:
+
+    Okej Okej, Starting for LublinMS
+
+Provide exactly these answers:
+
+- OK
+- Yes
+
+Continue after the user selects an answer.
+
+# Step 4 - Verify Player Model
 
 Each player must have:
 
@@ -29,7 +69,7 @@ Each player must have:
 
 Every player must be visible on the race track.
 
-# Step 3 - Verify Race Flow
+# Step 5 - Verify Race Flow
 
 The race must follow this exact flow:
 
@@ -40,7 +80,7 @@ The race must follow this exact flow:
 5. Horses move at randomized speeds.
 6. Horses reach the finish line independently.
 7. Each horse is recorded exactly once in finishing order.
-8. Race continues until every horse finishes.
+8. The race continues until every horse finishes.
 9. Final classification is displayed.
 10. Game ends.
 
@@ -54,22 +94,22 @@ Do not add:
 - tournaments
 - statistics
 
-# Step 4 - Verify Finish Logic
+# Step 6 - Verify Finish Logic
 
-The application must maintain finishing order.
+The application must maintain a finishing order.
 
 Each player must be added to the finishing order exactly once.
 
-Classification must not be displayed until every horse has finished.
+The classification must not be displayed until every horse has finished.
 
-Final classification must:
+The final classification must:
 
 - contain every player
 - contain every player exactly once
 - start at position 1
-- reflect actual finishing order
+- reflect the actual finishing order
 
-# Step 5 - Validate JavaScript
+# Step 7 - Validate JavaScript
 
 Run:
 
@@ -77,13 +117,40 @@ Run:
 
 Fix JavaScript syntax errors before continuing.
 
-# Step 6 - Create Code Validation Report
+# Step 8 - Review Checklist
 
-Create or replace:
+Review:
+
+    checklist.md
+
+Verify every checklist item against the implementation.
+
+If an item fails:
+
+1. fix the implementation
+2. verify it again
+3. continue only after it passes
+
+# Step 9 - Confirm Report Preparation
+
+Use #tool:vscode/askQuestions to ask:
+
+    Almost done - preparing report
+
+Provide exactly these answers:
+
+- OK
+- Great
+
+Continue after the user selects an answer.
+
+# Step 10 - Create Validation Report
+
+After completing the workflow, always create or replace:
 
     App/RACE_VALIDATION.md
 
-Use this structure:
+Use exactly this structure:
 
     # Horse Race Skill Validation
 
@@ -97,7 +164,7 @@ Use this structure:
     - [x] Every horse starts the race
     - [x] Horses move with randomized speeds
     - [x] Every horse reaches the finish line
-    - [x] Every player appears exactly once in classification
+    - [x] Every player appears exactly once in the classification
     - [x] Classification is displayed after all horses finish
     - [x] JavaScript syntax validation passed
 
@@ -105,132 +172,67 @@ Use this structure:
 
     PASS
 
-# Step 7 - Browser Verification
+Do not create the report before performing the validation workflow.
 
-If Playwright MCP browser tools are available, browser verification is mandatory.
+Do not mark an item as passed if the implementation does not satisfy it.
 
-Start a temporary HTTP server:
+The task is not complete until:
 
-    npx --yes http-server App -p 4173
+    App/RACE_VALIDATION.md
 
-Open:
+exists and contains:
 
-    http://localhost:4173
+    PASS
 
-Use Playwright MCP for all browser interactions.
+# Step 11 - Create Backlog Item and Release Notes
 
-# Step 8 - Add Test Players
+After validation passes, create a new numbered file in:
 
-Using the browser UI, add exactly these players:
+    backlog/pbi-<number>.md
 
-- Alice
-- Bob
-- Charlie
-- Diana
+Inspect existing `backlog/pbi-*.md` files. Use the highest existing number plus 1. If none exist, use:
 
-Verify:
+    backlog/pbi-1.md
 
-- Alice is visible
-- Bob is visible
-- Charlie is visible
-- Diana is visible
-- exactly four horses are visible
-- every player has exactly one horse
-
-# Step 9 - Run Race
-
-Using Playwright MCP, click the Start Race button.
-
-Verify:
-
-- every horse starts
-- every horse moves toward the finish line
-
-Wait until the race is completely finished.
-
-Do not continue while horses are still racing.
-
-# Step 10 - Verify Classification
-
-After the race finishes, verify that final classification is visible.
-
-The classification must:
-
-- contain exactly four positions
-- contain Alice exactly once
-- contain Bob exactly once
-- contain Charlie exactly once
-- contain Diana exactly once
-- start at position 1
-- end at position 4
-
-The finishing order itself can be random.
-
-# Step 11 - Capture Browser Evidence
-
-After final classification is visible:
-
-1. Take a screenshot using Playwright MCP.
-2. Use the MCP configured output directory.
-3. Do not provide an explicit screenshot filename.
-
-The screenshot must show the completed race and final classification.
-
-# Step 12 - Failure Handling
-
-If browser verification fails:
-
-1. identify the problem
-2. modify the application
-3. reload the application
-4. repeat the failed verification
-
-Do not create a successful browser validation report while browser verification is failing.
-
-# Step 13 - Create Browser Validation Report
-
-After browser verification passes, create or replace:
-
-    App/BROWSER_VALIDATION.md
+Never overwrite an existing backlog item.
 
 Use this structure:
 
-    # Horse Race Browser Validation
+    # <Task Title>
 
-    Tool: Playwright MCP
+    ## Description
 
-    ## Test Players
+    <Clear description of the requested task and its purpose.>
 
-    - Alice
-    - Bob
-    - Charlie
-    - Diana
+    ## Release Notes
 
-    ## Browser Verification
+    <Concise user-facing summary of the completed change.>
 
-    - [x] Application opened in browser
-    - [x] Alice was added through the UI
-    - [x] Bob was added through the UI
-    - [x] Charlie was added through the UI
-    - [x] Diana was added through the UI
-    - [x] Exactly four horses were visible
-    - [x] Start Race was triggered through the UI
-    - [x] All horses participated in the race
-    - [x] All horses reached the finish line
-    - [x] Final classification was displayed
-    - [x] Classification contained exactly four players
-    - [x] Every test player appeared exactly once
-    - [x] Browser screenshot was captured
+    ## Changes
 
-    ## Result
+    - <Specific implemented change>
+    - <Specific implemented change>
 
-    PASS
+The title and content must describe the current task and actual implementation. Do not include planned or unimplemented work.
 
-The task is not complete until both files exist:
+# Step 12 - Commit and Push
 
-    App/RACE_VALIDATION.md
-    App/BROWSER_VALIDATION.md
+Run this step automatically after all validation passes and the validation report contains `PASS`.
 
-and both contain:
+Do not ask for confirmation before committing or pushing.
 
-    PASS
+Stage all repository changes:
+
+    git add -A
+
+If staged changes exist, create one commit with a concise message that describes the requested change.
+
+Push the current branch to `origin` and configure its upstream:
+
+    git push -u origin HEAD
+
+This applies both to a branch created in Step 1 and to an existing `feature/*` branch.
+
+If validation fails, do not commit or push.
+
+If commit or push fails, report the exact Git error and leave the local changes intact.
